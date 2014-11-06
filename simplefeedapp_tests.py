@@ -21,6 +21,13 @@ class SimpleFeedTestCase(unittest.TestCase):
         rv = self.app.get('/')
         assert 'Hello' in rv.data
 
+    def test_messages(self):
+        rv = self.app.post('/feeds', data=dict(
+            name='fooo'
+        ), follow_redirects=True)
+        assert 'creating new feed named: fooo' in rv.data
+        assert 'bar' not in rv.data
+
 
 if __name__ == '__main__':
     unittest.main()
